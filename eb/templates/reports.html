@@ -1,0 +1,47 @@
+{% extends '_base.html' %}
+
+{{ form_reports.media }}
+
+{% block body %}
+
+<div class="container mt-3">
+    <h3>Reports</h3>
+
+    <small class="text-muted">Download auctions as a XLSX file, ready to upload on WoW angebote proposal portal.</small>
+
+    <hr>
+
+    <form class="download" method="post">
+        {% csrf_token %}
+        {{form_reports.as_p }}
+
+        {% if form_reports.end_date %}
+        <div class="input-group date" id="id_start_date" data-target-input="nearest">
+            {{form_reports.start_date}}
+            <div class="input-group-append" data-target="#id_start_date" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+        </div>
+
+        <div class="input-group date" id="id_end_date" data-target-input="nearest">
+            {{form_reports.end_date}}
+            <div class="input-group-append" data-target="#id_end_date" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+        </div>
+        {% endif %}
+
+        <script>
+            $(function () {
+                $("#id_start_date").datetimepicker({format: "YYYY-MM-DD", });
+                $("#id_end_date").datetimepicker({format: "YYYY-MM-DD", });
+             });
+
+        </script>
+
+        <button type="submit" name="submit-download" class="btn btn-primary mb-2">Download</button>
+    </form>
+</div>
+
+
+{% endblock %}

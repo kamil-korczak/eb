@@ -1,0 +1,80 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block body %}
+
+<script src="{% static 'js/auctions_add.js' %}"></script>
+
+<div class="container as">
+
+    <h2 class="text-secondary">Add Auction</h2>
+
+    <small class="text-muted">Allowed &#60;ebay auction link&#62; or &#60;ebay auction number&#62;.</small>
+    
+    <hr class="my-3" />
+
+    <form id="add-auction-type" method="post">
+        {% csrf_token %}
+
+        {% for add_type in form.add_auctions_type %}
+        <div class="row form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label for="{{ add_type.id_for_label }}" class="input-group-text border-right-0">
+                        {{ add_type.choice_label }}
+                        <!-- {{ add_type.tag }} -->
+                    </label>
+                    <div class="input-group-text">
+                        {{ add_type.tag }}
+                    </div>
+                    
+                </div>
+                {% if add_type.choice_label == 'Single' %}
+                    {{ form.add_auction_single }}
+
+                    {% if form.add_auction_single.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in form.add_auction_single.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                {% endif %}
+
+                {% if add_type.choice_label == 'Multiple' %}
+                    {{ form.add_auctions_multiple }}
+
+                    {% if form.add_auctions_multiple.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in form.add_auctions_multiple.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                {% endif %}
+                
+            </div>
+
+            
+
+            {% if add_type.choice_label == 'Multiple' %}
+            <span class="helptext">
+                {{ form.add_auctions_multiple.help_text }}
+            </span>
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+        {{ form.non_field_errors }}
+
+        <button type="submit" name="submit-add-auction" class="btn btn-primary mb-2">Add</button>
+       
+    </form>       
+        
+   
+
+</div>
+
+{% endblock %}

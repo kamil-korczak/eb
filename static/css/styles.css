@@ -1,0 +1,241 @@
+/* NOT LOGGED */
+html, body.not-logged {
+    height:100%;
+}
+body.not-logged {
+    box-shadow: inset 0 0 5rem rgba(0, 0, 0, .1);
+    text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .3);
+}
+
+/*body.not-logged .page-header{
+    margin-top:5%;
+}*/
+
+body.not-logged .btn-lg {
+    padding: .75rem 1.25rem;
+    font-weight:700;
+    margin-top:40px;
+    font-size:1.8rem;
+}
+
+/* NOT LOGGED - end */
+
+html, body {
+    height:100%;
+}
+
+body {
+    padding-top: 5.9rem;
+}
+
+.bg-subnav {
+    background:#ecececa1;
+}
+
+p.current-profile {
+    margin:0;
+}
+
+.page-wrapper {
+    position:relative;
+    top:-8px;
+}
+
+.alerts {
+    padding:.5rem .75rem;
+}
+
+.alerts > .alert+.alert
+/* body>.progress+.btn, body>.progress+.progress*/ {
+    margin-top: 1rem;
+}
+
+.pagination-top {
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+#my-nav2 {
+    width:100%;
+}
+
+#my-nav2 input, #my-nav2 p {
+    margin:.35rem 0;
+    /*vertical-align: middle;*/
+}
+
+#my-nav2 li.auction-add {
+    margin-right:30px;
+}
+
+form.single-auction */*button[type="submit"]*/{
+    display:inline
+}
+
+form .helptext {
+    display:block;
+    color: #737373;
+    margin-top:5px;
+    margin-bottom:10px;
+    font-size:.8rem;
+}
+
+.filter-col {
+    padding-left:5px;
+    padding-right:5px;
+}
+
+table.auctions .row.header {
+    border-bottom:1px solid #dee2e6;
+    font-weight:bold;    
+}
+
+table.auctions .row {
+    border-top:1px solid #dee2e6;
+}
+
+table.auctions .table th,
+.auctions .table td {
+    vertical-align: middle;
+}
+
+table.auctions .table th.auction-title,
+.auctions .table td.auction-title {
+    width:80em;
+}
+
+table.auctions td.auction-action {
+}
+
+table.auctions .row.auction .auction-price-uvp span {
+    text-decoration: line-through;
+}
+
+.container.as {
+    /* margin-top:10px; */
+}
+
+.container.as ul.as {
+    margin-bottom:1px;
+}
+
+img.auction-single.auction-image {
+    max-width:250px;
+}
+
+.page-footer {
+    padding-top:20px;
+}
+
+form#settings-form ul.errorlist,
+form.auction ul.errorlist,
+form.download ul {
+    list-style-type: none;
+}
+
+form.download ul.errorlist {
+    padding-left:0;
+}
+
+form#settings-form ul.errorlist,
+form.auction ul.errorlist {
+    padding-left:15px;
+}
+
+form.auction ul.errorlist {
+    margin-top:10px;
+    margin-bottom:5px;
+    width:100%;
+}
+
+form#settings-form ul.errorlist li,
+form.auction ul.errorlist li,
+form.download ul.errorlist li{
+    font-size: 80%;
+    color:#dc3545;
+}
+
+form#settings-form ul.errorlist{
+    margin:0;
+}
+
+form#auctions-search-form.error {
+    /* height:10px; */
+    margin-bottom: 1rem;
+}
+
+form#auctions-search-form.error .invalid-feedback {
+    position:absolute;
+    display:inline-block;
+    margin-top:5px;
+
+}
+
+form#add-auction-type .input-auctions.disabled {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+form.auction-adding button.btn{
+    text-transform: capitalize;
+}
+
+/* table.auctions tr:not(:first-of-type){ */
+/* table.auctions tbody tr{
+    cursor:pointer;
+} */
+
+/* auctions checkbox #start */
+#auctions-all table.auctions .auction-action {
+    cursor: pointer;
+}
+
+#auctions-all table.auctions .auction-action input[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+#auctions-all table.auctions .auction-action .checkmark {
+    position: relative;
+    display: block;
+    margin:0 auto;
+    /* text-align:center; */
+    height: 29px;
+    width: 29px;
+    background-color: #eee;
+}
+
+#auctions-all table.auctions .auction-action:hover input[type='checkbox'] ~ .checkmark {
+background-color: #ccc;
+}
+
+#auctions-all table.auctions .auction-action input[type='checkbox']:checked ~ .checkmark {
+background-color: #2196F3;
+}
+
+#auctions-all table.auctions .auction-action .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+#auctions-all table.auctions .auction-action input[type='checkbox']:checked ~ .checkmark:after {
+    display: block;
+}
+
+#auctions-all table.auctions .auction-action .checkmark:after {
+    left: 11px;
+    top: 7px;
+    width: 7px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+/* auctions checkbox #end */

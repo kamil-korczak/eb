@@ -1,0 +1,29 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block body %}
+
+<script src="{% static 'js/settings.js' %}"></script>
+
+<div class="container mt-3">
+    <h3>Settings</h3>
+
+    <small class="text-muted">settings info</small>
+
+    <hr>
+
+    <form id="settings-form" method="post">
+        {% csrf_token %}
+        
+        {{form_settings.as_p }}
+        
+        {% include 'forms/formset.html' with formset=formset_company_accounts prefix='account' first_row_label_tag=formset_company_accounts.form.company_account.label_tag %}
+        
+        {% include 'forms/formset.html' with formset=formset_ebay_categories prefix='ebay-category' first_row_label_tag=formset_ebay_categories.form.ebay_category.label_tag %}
+
+        <button type="submit" name="submit-save" class="btn btn-primary mb-2">Save</button>
+    </form>
+</div>
+
+
+{% endblock %}

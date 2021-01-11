@@ -1,0 +1,110 @@
+{% extends '_base.html' %}
+
+
+{% block body %}
+
+{% if auction != None %}
+
+<div class="container as">
+
+    <div class="group">
+        <h2 class="text-secondary d-inline-block">Auction #{{ auction.auction.id }}</h2>
+        {% if auction.auction.status == 0 %} <h4 class="d-inline-block"><span class="badge badge-warning">Not Confirmed{% endif %}</span></h4>
+    </div>
+
+    {#<h5 class="d-inline-block">#{{ auction.private_id }}</h5>#}
+
+    <h6 class="d-inline-block"><a href="https://www.ebay.de/itm/{{ auction.auction.external_id }}" target="_blank">{{ auction.auction.external_id }}</a></h6>
+
+    <hr class="my-3" />
+
+    <div class="row">
+
+        <div class="col-3">
+            <img class="auction-single auction-image" class="float-right" src="{{ auction.auction.img_auction }}" />
+        </div>
+
+        <div class="col-9">
+
+            <ul class="list-group list-group-flush as">
+                
+                {#<li><img style="max-height:200px;" src="{{ auction.img_auction }}" /></li>#}
+                <li class="list-group-item py-2"><strong>Account</strong>: {{ auction.auction.auction_account }}</li>
+                <li class="list-group-item py-2">
+                    <strong>Downloaded?</strong>
+                    <span class="badge badge-pill badge-{% if auction.auction.time_downloaded is not None %}success{% else %}danger{% endif %}">
+                            {% if auction.auction.time_downloaded is not None %}Yes{% else %}No{% endif %}
+                    </span>
+                </li>
+                <li class="list-group-item py-2">
+                    <strong>Last Downloaded</strong>: 
+                    {% if auction.auction.time_downloaded is not None %}{{ auction.auction.time_downloaded }}{% else %}Never{% endif %}
+                </li>
+                <li class="list-group-item py-2 mb-1 disabled"><strong>Added</strong>: {{ auction.auction.time_added }}</li>
+            </ul>
+
+            {% autoescape off %}    
+                {{ message }}
+            {% endautoescape %}
+    
+            {% if form_auction %}
+
+            <form method="post" class="auction">
+                {% csrf_token %}
+
+                {% for field in form_auction %}
+
+                <div class="form-group mb-1 dasd group row">
+                    
+                    {{ field.errors }}
+
+                    <label class="col-sm-2 col-form-label-sm" for="{{ field.auto_id }}">{{ field.label }}</label>
+
+                    <div class="col-sm-10">
+                        {{ field }}
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+                {% for field in form_auction_details %}
+
+                <div class="form-group mb-1 dasd group row">
+                    
+                    {{ field.errors }}
+
+
+                    <label class="col-sm-2 col-form-label-sm" for="{{ field.auto_id }}">{{ field.label }}</label>
+
+                    <div class="col-sm-10">
+                        {{ field }}
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+                <!-- {{ form_auction.as_p }} -->
+                <button type="submit" class="btn btn-primary mb-2">Update #{{ auction.auction.id }}</button>
+            </form>
+            {% else %}
+                <a class="btn btn-primary" href="" role="button">go back to editing</a>
+            {% endif %}
+    
+        </div>
+        
+        
+   
+    </div>
+
+</div>
+
+<div style="clear:both;"></div>
+
+{% else %}
+    <h3>Not Exist</h3>
+{% endif %}
+
+
+{% endblock %}

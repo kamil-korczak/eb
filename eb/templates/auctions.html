@@ -1,0 +1,204 @@
+{% extends '_base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+<script src="{% static 'js/auctions_search.js' %}"></script>
+<script src="{% static 'js/auctions.js' %}"></script>
+
+<div class="row p-2 pl-4 pr-4">
+
+  <div class="filter-card w-100">
+        <div class="card card-default">
+            <div class="card-body"> 
+                <form id="auctions-search-form" class="{% if form_auctions_search.external_id.errors %}error{% endif %}" method="post">
+                    <!-- form-inline -->
+                    {% csrf_token %}
+
+                    <div class="row ">
+                        <!-- align-items-center -->
+
+                        <div class="col-auto d-flex align-items-center">
+                            Search:
+                        </div>
+
+                        {% if status_field %}
+                        <div class="col-1">
+                            {{ form_auctions_search.status }}
+                        </div>
+                        {% endif %}
+
+                        <div class="col-1">
+                            {{ form_auctions_search.selected }}
+                        </div>
+
+                        <div class="col-2">
+                            
+                            {{ form_auctions_search.external_id }}
+                            <!-- {#{ form_auctions_search.external_id.css_classes }#} -->
+
+                            {% if form_auctions_search.external_id.errors %}
+                            <div class="invalid-feedback {% if form_auctions_search.external_id.errors %}{% endif %}">
+                                {% for error in form_auctions_search.external_id.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            
+                        </div>
+
+                        <div class="col-4">
+                            {{ form_auctions_search.title }}
+                        </div>
+
+                        <div class="col-1">
+                            {{ form_auctions_search.auction_account }}
+                        </div>
+
+                        <div class="col-1">
+                            {{ form_auctions_search.auctions_display }}
+                        </div>
+                        
+                        <div class="col-1">
+                            <button id="search-auctions-button" class="form-control" type="submit" name="submit-search">Search</button>
+                        </div>
+                        
+
+                        {{ form_auctions_search.non_field_errors }}
+
+                    </div> 
+
+                    <!-- disabled="true" -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- or search_result != None  -->
+
+{% if auctions or search_result != None  %}
+
+<div class="container-fluid auctions px-4 table-responsive text-nowrap" style="margin-bottom:5px;">
+
+    <!--<h3 style="margin-top:10px">Auctions list</h3>-->
+
+    <nav class="pagination-top" aria-label="Page navigation">
+        <ul class="pagination justify-content-end">
+            <li class="page-item{% if auctions.has_previous == False %} disabled{% endif %}">
+                <a class="page-link" href="{% if auctions.has_previous %}{% url_auctions_replace page=1 %}{% endif %}" tabindex="-1">&laquo; First</a>
+            </li>
+            <li class="page-item{% if auctions.has_previous == False %} disabled{% endif %}">
+                <a class="page-link" href="{% if auctions.has_previous %}{% url_auctions_replace  page=auctions.previous_page_number %}{% endif %}" tabindex="-1">&laquo;</a>
+            </li>
+            {% for p in auctions.paginator.page_range %}
+                {% if auctions.number == p %}    
+                    <li class="page-item active"><a class="page-link" href="{% url_auctions_replace page=p %}">{{ p }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="{% url_auctions_replace page=p %}">{{ p }}</a></li>
+                {% endif %}
+            {% endfor %}
+           
+            <li class="page-item{% if auctions.has_next == False %} disabled{% endif %}">
+                <a class="page-link" href="{% if auctions.has_next %}{% url_auctions_replace page=auctions.next_page_number %}{% endif %}">&raquo;</a>
+            </li>
+            <li class="page-item{% if auctions.has_next == False %} disabled{% endif %}">
+                <a class="page-link" href="{% if auctions.has_next %}{% url_auctions_replace  page=auctions.paginator.num_pages %}{% endif %}">Last &raquo;</a>
+            </li>
+        </ul>
+    </nav>
+
+<div id="auctions-all" class="card">
+
+    <table class="table table-hover auctions">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col" class="auction-id">
+                    ID
+                </th>
+                <th scope="col" class="auction-action">
+                    Action
+                </th>
+                <th scope="col" class="auction-image">
+                    IMG
+                </th>
+                <th scope="col" class="auction-account">
+                    Account
+                </th>
+                <!--<th scope="col" class="auction-item-id">
+                    Private ID
+                </th>-->
+                <th scope="col" class="auction-external-id">
+                    External ID
+                </th>
+                <th scope="col" class="auction-title">
+                    Title
+                </th>
+                <th scope="col" class="auction-price-normal">
+                    Price
+                </th>
+                <th scope="col" class="auction-price-uvp">
+                    Price UVP
+                </th>
+                <th scope="col" class="auction-is-downloaded">
+                    DL
+                </th>
+                <th scope="col" class="auction-last-downloaded-date">
+                    Last DL at
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+    {% for auction in auctions %}
+    <tr id="auction-id-{{ auction.id }}">
+        <th scope="row" class="auction-id">
+            {{ auction.auction.id }}
+        </th>
+        <td class="auction-action">
+            <input id="acb_{{ auction.auction.id }}" class="form-check" type="checkbox" {% if auction.auction.selected == 1 %} checked {% endif %} value="acb_{{ auction.auction.id }}" />
+            <span class="checkmark"></span>
+        </td>
+        <td class="auction-image">
+            <img style="max-height:45px; float:left;" src="{{ auction.auction.img_auction }}" />
+        </td>
+        <td class="auction-account">
+            {{ auction.auction.auction_account }}
+        </td>
+        {#<td class="auction-item-id">#}
+            {#<a href="/id/{{ auction.private_id }}/">#{{ auction.auction_private_id }}</a>#}
+        {#</td>#}
+        <td class="auction-external-id">
+            <a href="{% url 'auction' auction.auction.external_id %}">{{ auction.auction.external_id }}</a>
+            <!-- <a href="#">{{ auction.auction.external_id }}</a> -->
+        </td>
+        <td class="auction-title">
+            {{ auction.auction.title_auction }}
+        </td>
+        <td class="auction-price-normal">
+            {{ auction.price_normal }}€
+        </td>
+        <td class="auction-price-uvp text-secondary">
+            <span>{{ auction.price_uvp }}€</span><sub>UVP</sub>
+        </td>
+        <td class="auction-is-downloaded">
+            <span class="badge badge-pill badge-{% if auction.auction.time_downloaded is not None %}success{% else %}danger{% endif %}">
+                    {% if auction.auction.time_downloaded is not None %}Y{% else %}N{% endif %}
+            </span>
+        </td>
+        <td class="auction-last-downloaded-date">
+            {% if auction.auction.time_downloaded is not None %}{{ auction.auction.time_downloaded | date:"Y-m-d" }}{% else %}-{% endif %}
+        </td>
+    </tr>
+
+    {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

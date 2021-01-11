@@ -1,0 +1,73 @@
+<div class="formset-cointaner ">
+
+    {{ formset.management_form }}
+
+    <div id="formset-rows-{{prefix}}">
+            
+        
+        <div class="row row-{{prefix}} -header">
+
+            {#% if forloop.first %#}
+            <div class="col-3">
+               
+                    
+                {{ first_row_label_tag }}
+                    
+                
+            </div>  
+            <div class="col-9"></div>
+        </div>
+
+        {% for form in formset.forms %}
+            <div class="row row-{{prefix}}">
+
+                    
+                <div class="col-3"></div>
+
+                <div class="col-9 form-{{prefix}} form-inline"> 
+                    {% for field in form %}
+                                
+                        {% if field.name == 'DELETE' %}
+
+                                <span class="text-muted ml-1 mr-1"><small>delete </small></span> {{ field }}
+
+                        {% else %}
+
+                            {{ field }}
+
+                        {% endif %}
+
+                        {{ field.errors }}
+
+                        {#{ field.help_text }#}
+                        
+                    {% endfor %}
+                </div>
+                
+                
+
+
+                    {% if forloop.last %}
+
+                        {{ form.forms.help_text }}
+
+                    {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    
+    <div class="row row-button {{prefix}} w-100 p-2">
+        <div class="col-3"></div>
+        <div class="col-9">
+            <button id="add-{{prefix}}" name="add-{{prefix}}" class="btn btn-primary ml-3 mb-2 float-left">Add another {{prefix}}</button>
+        </div>
+    </div>
+    
+</div>
+
+
+

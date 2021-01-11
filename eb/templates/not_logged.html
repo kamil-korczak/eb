@@ -1,0 +1,13 @@
+{% load static %}
+<body class="not-logged text-center flex-column d-flex">
+    <div class="page-header mb-auto">
+        <h2><img src="{% static 'img/ebay-wow-logo-nl.png' %}" alt="logo ebay - wow generator"></h2>
+        <a class="btn btn-lg btn-primary" href="{% url 'login' %}">Log in</a>
+    </div>
+    <div class="page-wrapper">
+        <h2>I'm sorry access is private. <br/>You have to log in to see content.</h2>
+    </div>
+    <div class="page-footer mt-auto" style="margin-top:40px;">
+        <p>Ebay.de - WoW Proposal Generator</p>
+    </div>
+</body>

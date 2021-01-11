@@ -42,11 +42,10 @@ class Auctions(models.Model):
     status = models.IntegerField(choices=[(0, 'Not archived'), (1, 'Archived')], default=0)
     time_added = models.DateTimeField(auto_now_add=True, editable=False)
     time_downloaded = models.DateTimeField(null=True)
+    #data modyfikacji
 
     def __str__(self):
         return str(self.external_id)
-
-    #is_in_buffor
 
 class AuctionsDetails(models.Model):
     AUCTION_DAILY = 0
@@ -63,13 +62,10 @@ class AuctionsDetails(models.Model):
     items_stock = models.IntegerField(default=0) #stock
     price_normal = models.DecimalField(max_digits=5, decimal_places=2)
     price_uvp = models.DecimalField(max_digits=5, decimal_places=2)
-    # auction_format = models.IntegerField(choices=[(AUCTION_DAILY, 'wow! angebot des tages'), (AUCTION_WEEKLY, 'wow! angebot der woche'), (AUCTION_BOTH, 'daily & weekly')], default=None, blank=True, null=True) #weekly/daily
     auction_format = models.IntegerField(choices=AUCTION_FORMAT_CHOICES, default=None, blank=True, null=True) #weekly/daily
     #data modyfikacji
     #data dodania
     #data sciagniecia
-
-
 
 class Settings(models.Model):
     seller_email = models.EmailField(max_length=254)

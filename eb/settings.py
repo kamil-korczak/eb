@@ -10,11 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-""" USERS
-    is_staf: user:useruser2
-    is_not_staf: user2:useruser3
-"""
-
 from pathlib import Path
 import os
 
@@ -46,7 +41,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    '192.168.1.3',
 ]
 
 
@@ -129,9 +123,9 @@ DATABASES = {
     #! PostgreSQL DATABASE
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ebapp',
-        'USER': 'ebapp',
-        'PASSWORD': 's1$lne_pa4nrn0',
+        'NAME': 'database_name',
+        'USER': 'database_username',
+        'PASSWORD': 'database_password',
         'HOST': 'localhost',
         'PORT': '5432',
 

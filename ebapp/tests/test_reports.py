@@ -1,26 +1,23 @@
 import datetime
-
 import pytest
 
 from django.core.management import call_command
-
 from ebapp.tests.helper.auction_helper import AuctionExpected
-
 from ebapp.classes.report import Report
 from ebapp.models import Auctions, AuctionsDetails, Settings
 
-TEST_SETTINGS_JSON_DIR = 'ebapp/tests/test_files/json/'
+TEST_JSON_DIR = 'ebapp/tests/test_files/json/'
 
 @pytest.fixture(scope='session')
 def django_db_setup(django_db_setup, django_db_blocker):
     with django_db_blocker.unblock():
-        call_command('loaddata', f'{TEST_SETTINGS_JSON_DIR}settings_data.json')
-        call_command('loaddata', f'{TEST_SETTINGS_JSON_DIR}auctions_data.json')
-        call_command('loaddata', f'{TEST_SETTINGS_JSON_DIR}auctionsdetails_data.json')
+        call_command('loaddata', f'{TEST_JSON_DIR}settings_data.json')
+        call_command('loaddata', f'{TEST_JSON_DIR}auctions_data.json')
+        call_command('loaddata', f'{TEST_JSON_DIR}auctionsdetails_data.json')
 
 # pytestmark = pytest.mark.django_db
 @pytest.mark.django_db
-class TestAuctions:
+class TestReports:
   
     def test_report(self, django_db_setup):
         company_account = 'redox-fashion'

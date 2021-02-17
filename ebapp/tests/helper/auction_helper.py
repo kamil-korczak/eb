@@ -7,7 +7,6 @@ class AuctionTestFile:
     
     def __init__(self, external_id):
         self.filename_auction_data_raw = f'{AUCTION_TEST_DIR_LOCATION}{AUCTION_TEST_FILE_PREFIX}{external_id}' 
-        # self.external_id = external_id
         self.auction_test_data = self.setAuctionTestData(filename=self.filename_auction_data_raw)
 
     def getAuctionTestData(self):

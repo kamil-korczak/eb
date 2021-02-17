@@ -21,8 +21,7 @@
     </head>
     <body>
         <form method="post" class="form-signin">
-            <h2><img class="logo" src="{% static 'img/ebay-wow-logo-nl.png' %}" height="150" alt="logo ebay - wow generator"></h2>
-            {# <h3 class="form-signin-heading">Login</h3> #}
+            <h2 class="logo"><img class="logo" src="{% static 'img/ebay-wow-logo-nl.png' %}" height="150" alt="logo ebay - wow generator"></h2>
             {% csrf_token %}
             {{ form.as_p }}
           <button type="submit" class="btn btn-primary btn-block">Login</button>

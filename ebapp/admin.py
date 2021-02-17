@@ -6,6 +6,5 @@ from ebapp.models import (
 )
 
 # Register your models here.
-
 admin.site.register(CompanyAccounts)
 admin.site.register(EbayCategories)

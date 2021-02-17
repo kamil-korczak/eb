@@ -22,7 +22,6 @@
                 <div class="input-group-prepend">
                     <label for="{{ add_type.id_for_label }}" class="input-group-text border-right-0">
                         {{ add_type.choice_label }}
-                        <!-- {{ add_type.tag }} -->
                     </label>
                     <div class="input-group-text">
                         {{ add_type.tag }}
@@ -55,8 +54,6 @@
                 
             </div>
 
-            
-
             {% if add_type.choice_label == 'Multiple' %}
             <span class="helptext">
                 {{ form.add_auctions_multiple.help_text }}
@@ -72,8 +69,6 @@
         <button type="submit" name="submit-add-auction" class="btn btn-primary mb-2">Add</button>
        
     </form>       
-        
-   
 
 </div>
 

@@ -30,14 +30,9 @@ LOGIN_URL = '/accounts/login/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-# STATIC_ROOT = '/home/kamil/Documents/apps/eb-project/eb/static/'
 STATIC_ROOT = BASE_DIR / 'static/'
 
 STATIC_URL = '/static/'
-
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, 'static'),
-#)
 
 
 # Quick-start development settings - unsuitable for production
@@ -52,8 +47,6 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     '192.168.1.3',
-    '213.146.42.255', # WAN IP
-    'eb.app',
 ]
 
 
@@ -91,15 +84,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated', # turn this on
     ],
 
-    # 'DEFAULT_RENDERER_CLASSES': [
-    #     'rest_framework.renderers.JSONRenderer',
-    # ],
 
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
 }
-
-#AUTH_USER_MODEL = 'Account'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -126,9 +114,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'builtins': ['ebapp.classes.templatetags'],
-            # 'libraries': {
-            #     'url_replace': 'ebapp.classes.templatetags',
-            # }
         },
     },
 ]
@@ -149,23 +134,8 @@ DATABASES = {
         'PASSWORD': 's1$lne_pa4nrn0',
         'HOST': 'localhost',
         'PORT': '5432',
-       # 'OPTIONS': {
-        #    'read_default_file': '/home/kamil/Documents/apps/eb-project/local.cnf', # TODO_LATER how to make this working for POSTGRESQL
-        #},
 
      }
-
-    #? MySQL DATABASE
-    #  'default': {
-    #    'ENGINE': 'django.db.backends.mysql',
-    #    'OPTIONS': {
-    #        'read_default_file': '/home/kamil/Documents/apps/eb-project/external.cnf',
-    #    }, 
-        
-        #default
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': BASE_DIR / 'db.sqlite3',
-    #}   """
 }
 
 

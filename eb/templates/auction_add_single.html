@@ -1,6 +1,5 @@
 {% extends '_base.html' %}
 
-
 {% block body %}
 
 {% if auction_data  %}
@@ -59,12 +58,6 @@
                 </div>
 
                 {% endfor %}
-                
-
-                <!-- {{ form_add_auction.as_ul }} -->
-
-                <!-- {{ form_add_auction_details.as_ul }} -->
-
 
                 <button type="submit" name="submit-add-auction" class="btn btn-primary mb-2">{{ auction_status }} #{{ form_add_auction.external_id.value }}</button>
             </form>

@@ -16,9 +16,13 @@ ul.errorlist.nonfield {
     border-radius:4px;
 }
 
+.form-signin h2.logo {
+    text-align: center;
+}
+
 .form-signin img.logo {
     position:relative;
-    left:-10px;
+    /* left:-10px; */
     margin-bottom:20px;
 }
 

@@ -3,16 +3,12 @@
     {{ formset.management_form }}
 
     <div id="formset-rows-{{prefix}}">
-            
-        
+ 
         <div class="row row-{{prefix}} -header">
 
-            {#% if forloop.first %#}
             <div class="col-3">
-               
                     
                 {{ first_row_label_tag }}
-                    
                 
             </div>  
             <div class="col-9"></div>
@@ -21,7 +17,6 @@
         {% for form in formset.forms %}
             <div class="row row-{{prefix}}">
 
-                    
                 <div class="col-3"></div>
 
                 <div class="col-9 form-{{prefix}} form-inline"> 
@@ -38,14 +33,9 @@
                         {% endif %}
 
                         {{ field.errors }}
-
-                        {#{ field.help_text }#}
                         
                     {% endfor %}
                 </div>
-                
-                
-
 
                     {% if forloop.last %}
 
@@ -67,7 +57,4 @@
         </div>
     </div>
     
-</div>
-
-
-
+</div>                

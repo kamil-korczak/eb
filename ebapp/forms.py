@@ -14,22 +14,12 @@ from django.core.exceptions import ValidationError
 
 from ebapp.classes import formsebapp
 
-#from tempus_dominus.widgets import DatePicker
-
 class SettingsForm(forms.ModelForm):
     seller_email = forms.EmailField(
         label='Company e-mail for notifications',
         widget=forms.TextInput(attrs={'class': 'form-control'}),
         help_text='This email will be used in reports.',
     )
-
-    # company_accounts = forms.CharField(
-    #     widget=forms.Textarea(attrs={
-    #         'class': 'form-control',
-    #         'rows': 3,
-    #         }),
-    #     help_text='Separate accounts name by new line',
-    # )
     
     target_website_for_wow_offer = forms.IntegerField(
         widget=forms.NumberInput(attrs={'class': 'form-control'}),
@@ -40,21 +30,11 @@ class SettingsForm(forms.ModelForm):
         initial=77,
     )
 
-    # ebay_category = forms.CharField(
-    #     widget=forms.Textarea(attrs={
-    #         'class': 'form-control',
-    #         'rows': 3,
-    #         }),
-    #     help_text='First line is showed as default option in select box.\rSeparate categories by new line.',
-    # )
-
     class Meta:
         model = Settings
         fields = [
             'seller_email',
-            # 'company_accounts',
             'target_website_for_wow_offer',
-            # 'ebay_category',
         ]
 
 class CompanyAccountsForm(forms.ModelForm):
@@ -101,23 +81,10 @@ EbayCategoriesFormset = modelformset_factory(
     }
 )
 
-# CompanyAccountsFormSet = modelformset_factory(
-#     CompanyAccounts, fields=['company_account'], extra=1,
-#     widgets=forms.TextInput(
-#         attrs={
-#             'class': 'form-control',
-#         }
-#         ),
-# )
-
-
 class AuctionsSearchForm(forms.Form):
     error_css_class = 'error'
     
     external_id = forms.IntegerField(
-        # input_formats=['\d'],
-        # min_value=1, 
-        # max_value=999999999999, 
         widget=forms.NumberInput(
             attrs={
                 'class': 'form-control',
@@ -125,10 +92,6 @@ class AuctionsSearchForm(forms.Form):
                 }
         ),
         required=False,
-        #error_messages={
-        #    'invalid': 'Please let us know what to call you!'
-        #    },
-
     )
 
     title = forms.CharField( 
@@ -237,7 +200,6 @@ class AddAuctionsForm(forms.Form):
         help_text='',
         required=False,
         disabled=False,
-        # initial='124186915408'
     )
 
     add_auctions_multiple = forms.CharField(
@@ -249,7 +211,6 @@ class AddAuctionsForm(forms.Form):
         help_text=f"Separate each auctions by new line. Max {MAX_NUMBER_OF_ADDING_MULTIPLE_AUCTIONS} auctions.",
         required=False,
         disabled=False,
-        # initial='124464832617',
     )
 
     def clean(self):
@@ -354,17 +315,6 @@ class UpdateAuctionForm(forms.ModelForm):
         choices=Auctions.AUCTION_SELECT_CHOICES,
         attrs={'class': 'form-control'}))
 
-    #TODO
-    # ! WORKING - but not refresh data on website without restarting server
-    # ! not working during tests
-
-    #ebay_category_query = Settings.objects.all().values('ebay_category').last()
-    # EBAY_CATEGORY_CHOICES = formsebapp.FormsEbApp.generateSelectChoices(
-    # None, query_result=ebay_category_query, query_result_columnname='ebay_category',empty_firstline=False)
-    # ebay_category = forms.CharField(widget=forms.Select(
-    #     # choices=EBAY_CATEGORY_CHOICES,
-    #     attrs={'class': 'form-control'}))
-
     ebay_category = forms.ModelChoiceField(
         queryset=EbayCategories.objects.all().order_by('position', 'ebay_category'),
         empty_label=None,
@@ -398,50 +348,14 @@ class AddAuctionSingleForm(UpdateAuctionForm):
             'seller_comment',
             'ebay_category',
             'external_id', 
-            # 'private_id',
             'img_auction',
             'auction_account',
         ]
 
-
-
-# AuctionsFormSet = inlineformset_factory(
-#     Auctions, AuctionsDetails, form=AddAuctionForm,
-#     fields=[
-#         'price_normal',
-#         'price_uvp',
-#         'items_stock',
-#         'auction_format'
-
-#     ], extra=1
-# )
-
 class ReportsForm(forms.Form):
-    # start_date = forms.DateField(
-    #     input_formats=['%d/%m/%Y'],
-    #     widget=forms.DateInput(
-    #         attrs={
-    #             'class': 'form-control datetimepicker-input',
-    #             'data-target': '#id_start_date',
-    #             'data-toggle': 'datetimepicker',
-    #         }
-    #     )
-    # )
-
-    # end_date = forms.DateField(
-    #     input_formats=['%d/%m/%Y'],
-    #     widget=forms.DateInput(
-    #         attrs={
-    #             'class': 'form-control datetimepicker-input',
-    #             'data-target': '#id_end_date',
-    #             'data-toggle': 'datetimepicker',
-    #         }
-    #     )
-    # )
 
     company_accounts = forms.ModelChoiceField(
         queryset=CompanyAccounts.objects.filter(visible__exact=1).order_by('company_account'),
-        # empty_label=None,
         widget=forms.Select(
             attrs={
                 'class': 'form-control',
@@ -453,7 +367,6 @@ class ReportsForm(forms.Form):
         label='Choose download type:',
         widget=forms.RadioSelect, 
         choices=Auctions.AUCTION_DOWNLOAD_CHOICES,
-        # initial=1
         )
 
     promotion_date_start = forms.DateField(

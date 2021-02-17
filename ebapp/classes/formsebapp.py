@@ -2,20 +2,6 @@ import re
 
 class FormsEbApp():
 
-    def generateSelectChoices(self, query_result, query_result_columnname, empty_firstline=True):
-
-        splited_query_results = query_result[query_result_columnname].split("\r\n")
-
-        choices = []
-        
-        if empty_firstline is True:
-            choices.append(('', ''))  
-
-        for single_result in splited_query_results:
-            choices.append((single_result, single_result))
-
-        return choices
-
     def generateSelectModelChoicesPlusEmpty(self, model_choices):
 
         choices = []

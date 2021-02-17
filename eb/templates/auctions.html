@@ -1,7 +1,6 @@
 {% extends '_base.html' %}
 {% load static %}
 
-
 {% block body %}
 
 <script src="{% static 'js/auctions_search.js' %}"></script>
@@ -69,7 +68,6 @@
 
                     </div> 
 
-                    <!-- disabled="true" -->
                 </form>
             </div>
         </div>
@@ -77,13 +75,10 @@
 
 </div>
 
-<!-- or search_result != None  -->
-
 {% if auctions or search_result != None  %}
 
 <div class="container-fluid auctions px-4 table-responsive text-nowrap" style="margin-bottom:5px;">
 
-    <!--<h3 style="margin-top:10px">Auctions list</h3>-->
 
     <nav class="pagination-top" aria-label="Page navigation">
         <ul class="pagination justify-content-end">
@@ -127,9 +122,6 @@
                 <th scope="col" class="auction-account">
                     Account
                 </th>
-                <!--<th scope="col" class="auction-item-id">
-                    Private ID
-                </th>-->
                 <th scope="col" class="auction-external-id">
                     External ID
                 </th>
@@ -172,7 +164,6 @@
         {#</td>#}
         <td class="auction-external-id">
             <a href="{% url 'auction' auction.auction.external_id %}">{{ auction.auction.external_id }}</a>
-            <!-- <a href="#">{{ auction.auction.external_id }}</a> -->
         </td>
         <td class="auction-title">
             {{ auction.auction.title_auction }}

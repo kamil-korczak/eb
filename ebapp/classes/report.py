@@ -1,3 +1,4 @@
+#ebapp\classes\report.py
 from django.http import HttpResponse
 from datetime import datetime
 from django.utils import timezone
@@ -51,7 +52,7 @@ class Report:
             object_row.price_normal,
             'uvp', #uvp
             object_row.price_uvp,
-            self.auctionFormat(object_auction_format),#'weekly/daily', #weekly/daily
+            self.auctionFormat(object_auction_format),#'weekly/daily'
             self.promotion_date_start,
             '', #Preisvergleichsportal 1 (Amazon für DE)
             '', #Preisvergleichsportal 2 (Idealo für DE)
@@ -118,12 +119,10 @@ class Report:
             
             if self.isBothAuctionFormat(auction_object.auction_format):
                 auction_rows_count = 2
-
             else:
                 auction_rows_count = 1
 
             for i_row in range(auction_rows_count):
-
                 row = self.setRowAuctionData(
                     auction_object, 
                     self.setRowAuctionFormat(

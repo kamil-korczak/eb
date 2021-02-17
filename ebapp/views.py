@@ -24,7 +24,7 @@ from django.db.models import FilteredRelation, Q
 from django.db.models import OuterRef, Subquery
 
 
-class AuctionsView(TemplateView):
+class AuctionsView(TemplateView): #asdads
     template_name = 'auctions.html'
 
     def get(self, request, page=1, **kwargs):
@@ -73,7 +73,6 @@ class AuctionsView(TemplateView):
 
         if c_status:
             filter_args['auction__status__exact'] = c_status
-
 
         if c_selected:
             filter_args['auction__selected__exact'] = c_selected
@@ -154,7 +153,8 @@ class AuctionsView(TemplateView):
 
         else:
             for field in form_auctions_search.errors:
-                form_auctions_search[field].field.widget.attrs['class'] += ' is-invalid'
+                form_auctions_search[field].field.widget.attrs['class'] += \
+                    ' is-invalid'
 
         args = {
             'auctions': auctions,
@@ -306,20 +306,6 @@ class AuctionsAddPageView(LoginRequiredMixin, TemplateView):
         else:
             for field in form_add_auctions.errors:
                 form_add_auctions[field].field.widget.attrs['class'] += ' is-invalid'
-
-        # if form_add_auction.is_valid() and form_add_auction_details.is_valid():
-        #     field_name = 'external_id'
-
-        #     messages.success(request, f'#{form_add_auction.cleaned_data[field_name]}')
-
-        #     save_form_add_auction = form_add_auction.save()
-            
-        #     save_form_auction_details = form_add_auction_details.save(commit=False)
-        #     save_form_auction_details.auction = save_form_add_auction
-
-        #     save_form_auction_details.save()
-
-        #     return redirect(f'/auctions/{form_add_auction.cleaned_data[field_name]}/')
         
         args = {
             'form': form_add_auctions,
@@ -410,9 +396,6 @@ class AuctionsAddSinglePageView(LoginRequiredMixin, TemplateView):
             else:
                 message_info = 'Updated'
 
-            # auction.status = Auctions.AUCTION_STATUS_CONFIRMED
-
-
             messages.success(request, f'{message_info} #{form_add_auction.cleaned_data[field_name]}')
 
             return redirect(f'/auctions/{form_add_auction.cleaned_data[field_name]}/')
@@ -428,7 +411,6 @@ class AuctionsAddSinglePageView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, args)
 
 class SettingsView(StaffuserRequiredMixin, LoginRequiredMixin, TemplateView): #LoginRequiredMixin
-    # raise_exception = True
     template_name = 'settings.html'
 
     def get(self, request, **kwargs):
@@ -467,6 +449,18 @@ class SettingsView(StaffuserRequiredMixin, LoginRequiredMixin, TemplateView): #L
             formset_ebay_categories.is_valid():
 
             form_settings.save()
+
+        form_settings = forms.SettingsForm(request.POST or None, 
+            instance=settings_objects)
+
+        formset_company_accounts = forms.CompanyAccountsFormSet(request.POST, prefix='account')
+
+        formset_ebay_categories = forms.EbayCategoriesFormset(request.POST, prefix='ebay-category')
+
+        if form_settings.is_valid() and \
+            formset_company_accounts.is_valid() and \
+            formset_ebay_categories.is_valid():
+
             formset_company_accounts.save()
             formset_ebay_categories.save()
 
@@ -544,17 +538,14 @@ class ReportsView(LoginRequiredMixin, TemplateView):
                 filter_args['auction__time_downloaded__isnull'] = True
 
             auctions_details = AuctionsDetails.objects   \
-            .filter(**filter_args) \
-            .order_by('-auction', '-pk')    \
-                .distinct('auction')    \
-                .select_related('auction')
+                .filter(**filter_args) \
+                .order_by('-auction', '-pk')    \
+                    .distinct('auction')    \
+                    .select_related('auction')
 
             settings = Settings.objects.all().last()
 
             report_response = Report.generate(Report(c_company_accounts, c_promotion_date_start, settings), auctions_details)
-
-            # print(report_response)
-
 
             return report_response
 

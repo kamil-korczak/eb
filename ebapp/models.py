@@ -1,25 +1,32 @@
+#eb/ebapp/models.py
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Auctions(models.Model):
+    ''' 
+    Tworząc stałe i tuple(*_CHOICES) wewnątrz klasy modelu, utrzymujemy 
+    porządek w kodzie źródłowym, a dodatkowo można odwoływać się do np 
+    Auctions.AUCTION_STATUS_CONFIRM_CHOICES, wszędzie tam gdzie zaimportujemy 
+    model Auctions.
+    '''
     AUCTION_DOWNLOAD_ALL = 1
     AUCTION_DOWNLOAD_SELECTED = 2
     AUCTION_DOWNLOAD_NEWLY_ADDED = 3
 
-    AUCTION_DOWNLOAD_CHOICES = [
+    AUCTION_DOWNLOAD_CHOICES = (
         (AUCTION_DOWNLOAD_SELECTED, 'Selected auctions'), 
         (AUCTION_DOWNLOAD_NEWLY_ADDED, 'Newly added auctions'),
         (AUCTION_DOWNLOAD_ALL, 'All auctions'), 
-    ]
+    )
 
     AUCTION_STATUS_NOTCONFIRMED = 0
     AUCTION_STATUS_CONFIRMED = 1
 
-    AUCTION_STATUS_CONFIRM_CHOICES = [
+    AUCTION_STATUS_CONFIRM_CHOICES = (
         (AUCTION_STATUS_CONFIRMED, 'Confirmed'),
         (AUCTION_STATUS_NOTCONFIRMED, 'Not Confirmed'),
-    ]
+    )
 
     AUCTION_NOT_SELECTED = 0
     AUCTION_SELECTED = 1
@@ -38,11 +45,10 @@ class Auctions(models.Model):
     auction_account = models.CharField(max_length=20)
     ebay_category = models.CharField(max_length=150)
     selected = models.IntegerField(choices=AUCTION_SELECT_CHOICES, default=0)
-    archived = models.IntegerField(choices=AUCTION_SELECT_CHOICES, default=0)
-    status = models.IntegerField(choices=[(0, 'Not archived'), (1, 'Archived')], default=0)
+    archived = models.IntegerField(choices=[(0, 'Not archived'), (1, 'Archived')], default=0)
+    status = models.IntegerField(choices=AUCTION_STATUS_CONFIRM_CHOICES, default=0)
     time_added = models.DateTimeField(auto_now_add=True, editable=False)
     time_downloaded = models.DateTimeField(null=True)
-    #data modyfikacji
 
     def __str__(self):
         return str(self.external_id)
@@ -63,9 +69,6 @@ class AuctionsDetails(models.Model):
     price_normal = models.DecimalField(max_digits=5, decimal_places=2)
     price_uvp = models.DecimalField(max_digits=5, decimal_places=2)
     auction_format = models.IntegerField(choices=AUCTION_FORMAT_CHOICES, default=None, blank=True, null=True) #weekly/daily
-    #data modyfikacji
-    #data dodania
-    #data sciagniecia
 
 class Settings(models.Model):
     seller_email = models.EmailField(max_length=254)

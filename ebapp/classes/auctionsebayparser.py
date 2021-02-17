@@ -7,9 +7,6 @@ import requests
 
 class AuctionsEbayParser:
     
-    # def __init__(self, external_id):
-        # ''
-
     def setDataFromEbayAuction(self, request, external_id):
         self.auction_data = self.__getDataFromEbayAuction(request, external_id)
         self.external_id = external_id
@@ -39,8 +36,6 @@ class AuctionsEbayParser:
             soup = self.getSoup()
 
             auction_data = {}
-
-            # auction_iframe = requests.get(soup.select_one('#desc_ifr').attrs['src'])
 
             """ external_id """
             auction_data['external_id'] = self.parseExternalId(soup)
@@ -74,29 +69,12 @@ class AuctionsEbayParser:
     def parsePriceNormal(self, soup):
         return soup.select_one('#prcIsum').text.replace('EUR ', '')
 
-    def parsePriceUvp(self, soup): #NoneType
-        # * Working
-
-        # if price_uvp is not None:
-        #     price_uvp = soup.select_one('#orgPrc').text.replace('EUR ', '').strip()
-        # else:
-        #     price_uvp = None
-
-    #     if soup.select_one('#orgPrc'):
-    #         price = soup.select_one('#orgPrc').text.replace('EUR ', '').strip()
-    #     else:
-    #         price = '0,00'
-    #         print('price_error')
-    #         print(price)
-
+    def parsePriceUvp(self, soup):
         try:
             price_uvp = soup.select_one('#orgPrc').text.replace('EUR ', '').strip()
         except AttributeError as e:
-            print(f'[Error] AttributeError: {e}')
-            ''
             price_uvp = None
             pass
-
 
         return price_uvp
 
@@ -152,7 +130,6 @@ class AuctionsEbayParser:
 
         return parsed_data
 
-    # this method shouldnt be private
     def getDataAndSaveMultiple(self, request, auctions_list):
 
         auctions_list_data = self.getDataFromMultipleAuctions(request, auctions_list)

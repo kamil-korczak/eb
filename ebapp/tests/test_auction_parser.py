@@ -33,7 +33,6 @@ class TestAuctionParser:
     def test_external_id(self, test, expected):
         test, soup = self.processAuctionData(test)
         test_external_id = test.parseExternalId(soup)
-        print(test_external_id) 
         assert test_external_id == expected.get_external_id()
 
     def test_title_auction(self, test, expected):

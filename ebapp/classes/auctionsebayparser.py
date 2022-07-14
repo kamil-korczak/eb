@@ -1,6 +1,6 @@
 from django.contrib import messages
 
-from bs4 import BeautifulSoup, Comment
+from bs4 import BeautifulSoup
 from ebapp.models import Auctions, AuctionsDetails
 
 import requests

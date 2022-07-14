@@ -1,30 +1,29 @@
-import json
-from django.contrib.auth.mixins import LoginRequiredMixin
-from ebapp.classes.mixins import StaffuserRequiredMixin
-from django.http import HttpResponse
+""""Views"""
+
+# import json
+from urllib.parse import urlencode
+
+# from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 from django.contrib import messages
-
-from urllib.parse import urlencode
-
-
-from .models import (
-        Auctions, AuctionsDetails,
-        Settings
-        )
-from . import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
+from ebapp.classes.mixins import StaffuserRequiredMixin
 
 from ebapp.classes.auctionsebayparser import AuctionsEbayParser
 from ebapp.classes.report import Report
-from ebapp.classes.formsebapp import FormsEbApp
-from django.db.models import Count, Max
-from django.db.models import FilteredRelation, Q
-from django.db.models import OuterRef, Subquery
+# from ebapp.classes.formsebapp import FormsEbApp
+
+from .models import Auctions, AuctionsDetails, Settings
+from . import forms
+
+# from django.db.models import Count, Max
+# from django.db.models import Q
+# from django.db.models import OuterRef, Subquery
 
 
-class AuctionsView(TemplateView): #asdads
+class AuctionsView(TemplateView):
     template_name = 'auctions.html'
 
     def get(self, request, page=1, **kwargs):
@@ -110,7 +109,7 @@ class AuctionsView(TemplateView): #asdads
 
         return render(request, self.template_name, args)
 
-    def post(self, request, page=1, **kwargs):
+    def post(self, request, **kwargs):
 
         auctions = None
         search_result = None

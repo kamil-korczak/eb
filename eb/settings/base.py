@@ -179,4 +179,8 @@ USE_TZ = True
 
 FORMAT_MODULE_PATH = [
     'eb.formats',
+<<<<<<< HEAD
 ]
+=======
+]
+>>>>>>> 24b7463f99f9c392c21fed86917f6107b3fe428f
